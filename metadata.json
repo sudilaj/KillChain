@@ -1,0 +1,6 @@
+{
+  "name": "KillChain Initiative",
+  "description": "Fictional underground beta-test game recruitment site for a cinematic ARG prop.",
+  "requestFramePermissions": ["autoplay"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
