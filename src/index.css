@@ -1,0 +1,128 @@
+@import "tailwindcss";
+
+@theme {
+  --color-kc-red: #D20000;
+  --color-kc-dark-red: #8B0000;
+  --color-kc-black: #050505;
+  --color-kc-gray: #1A1A1A;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+}
+
+body {
+  background-color: var(--color-kc-black);
+  color: white;
+  font-family: var(--font-mono);
+  overflow-x: hidden;
+}
+
+/* CRT Scanline Effect */
+.scanlines {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0),
+    rgba(255, 255, 255, 0) 50%,
+    rgba(0, 0, 0, 0.2) 50%,
+    rgba(0, 0, 0, 0.2)
+  );
+  background-size: 100% 4px;
+  pointer-events: none;
+  z-index: 9998;
+  opacity: 0.3;
+}
+
+/* CRT Flicker */
+.flicker {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(255, 255, 255, 0.02);
+  pointer-events: none;
+  z-index: 9999;
+  animation: crtFlicker 0.15s infinite;
+  opacity: 0.5;
+}
+
+@keyframes crtFlicker {
+  0% { opacity: 0.02; }
+  50% { opacity: 0.05; }
+  100% { opacity: 0.02; }
+}
+
+/* Custom Scrollbar for the minimal look */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-kc-black); 
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-kc-red);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-kc-dark-red);
+}
+
+.glitch-text {
+  position: relative;
+  display: inline-block;
+}
+
+.glitch-text::before,
+.glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--color-kc-black);
+}
+
+.glitch-text::before {
+  left: 2px;
+  text-shadow: -1px 0 red;
+  clip: rect(24px, 550px, 90px, 0);
+  animation: glitch-anim 2s infinite linear alternate-reverse;
+}
+
+.glitch-text::after {
+  left: -2px;
+  text-shadow: -1px 0 blue;
+  clip: rect(85px, 550px, 140px, 0);
+  animation: glitch-anim 2.5s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-anim {
+  0% { clip: rect(74px, 9999px, 86px, 0); transform: translate(-1px, 1px); }
+  10% { clip: rect(10px, 9999px, 81px, 0); transform: translate(1px, -1px); }
+  20% { clip: rect(61px, 9999px, 60px, 0); transform: translate(-2px, 1px); }
+  30% { clip: rect(27px, 9999px, 75px, 0); transform: translate(2px, -2px); }
+  40% { clip: rect(51px, 9999px, 83px, 0); transform: translate(-1px, 2px); }
+  50% { clip: rect(3px, 9999px, 4px, 0); transform: translate(1px, -1px); }
+  60% { clip: rect(31px, 9999px, 80px, 0); transform: translate(-2px, 1px); }
+  70% { clip: rect(75px, 9999px, 32px, 0); transform: translate(2px, -2px); }
+  80% { clip: rect(37px, 9999px, 58px, 0); transform: translate(-1px, 2px); }
+  90% { clip: rect(96px, 9999px, 19px, 0); transform: translate(1px, -1px); }
+  100% { clip: rect(65px, 9999px, 62px, 0); transform: translate(-2px, 1px); }
+}
+
+.fake-input {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #333;
+  color: white;
+  outline: none;
+  font-family: inherit;
+  transition: border-bottom-color 0.3s;
+}
+.fake-input:focus {
+  border-bottom-color: var(--color-kc-red);
+}
